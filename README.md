@@ -1,6 +1,11 @@
 # NAVIA_PATH
 
-**Autonomous multi-provider intelligent Web automation agent for RPA robots and Windows workstations.**
+[![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
+[![Playwright](https://img.shields.io/badge/playwright-1.40%2B-green.svg)](https://playwright.dev/)
+[![LLM Multi-Provider](https://img.shields.io/badge/LLM-Vertex%20%7C%20OpenAI%20%7C%20Anthropic%20%7C%20Gemini-orange.svg)]()
+[![UiPath Ready](https://img.shields.io/badge/UiPath-Library%20Activities-blueviolet.svg)]()
+
+**Autonomous browser automation agent for RPA robots and Windows workstations.**
 
 ---
 
