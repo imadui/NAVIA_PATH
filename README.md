@@ -14,10 +14,8 @@
 
 <p align="center">
   <a href="docs/NAVIA_DEMO.mp4">
-    <img src="docs/NAVIA_DEMO_Thumbnail.png" alt="Watch the demo" width="600">
+    <img src="docs/NAVIA_DEMO_Preview.png" alt="NAVIA Demo Video - Click to Play" width="800">
   </a>
-  <br>
-  <a href="docs/NAVIA_DEMO.mp4">▶️ Watch the demo</a>
 </p>
 
 ---
