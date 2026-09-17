@@ -1,0 +1,272 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="NAVIA_PATH_Chrome" this:NAVIA_PATH_Chrome.in_UserPrompt="Navigate to the web portal and extract details" this:NAVIA_PATH_Chrome.in_MaxIterations="20" this:NAVIA_PATH_Chrome.in_CloseBrowserAfterExecution="False" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_UserPrompt" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="in_MaxIterations" Type="InArgument(x:Int32)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="in_CloseBrowserAfterExecution" Type="InArgument(x:Boolean)" />
+    <x:Property Name="in_NavIAPathExe" Type="InArgument(x:String)" />
+    <x:Property Name="out_ExecutionResult" Type="OutArgument(x:String)" />
+    <x:Property Name="out_NavIA_Window" Type="OutArgument(ui:UiElement)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>NAVIA_PATH_Chrome_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.AccessControl</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
+      <AssemblyReference>System.IO.FileSystem.Watcher</AssemblyReference>
+      <AssemblyReference>System.IO.Packaging</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="NAVIA PATH Chrome" sap:VirtualizedContainerService.HintSize="827.3333333333333,3822.6666666666665" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="naviaExePath" />
+      <Variable x:TypeArguments="x:String" Name="promptBase64" />
+      <Variable x:TypeArguments="x:String" Name="runId" />
+      <Variable x:TypeArguments="x:String" Name="resultFolder" />
+      <Variable x:TypeArguments="x:String" Name="resultFile" />
+      <Variable x:TypeArguments="x:String" Name="quote" />
+      <Variable x:TypeArguments="x:String" Name="startArguments" />
+      <Variable x:TypeArguments="x:String" Name="Current_URL" />
+      <Variable x:TypeArguments="x:String" Default="--remote-debugging-port=0" Name="debug_arguments" />
+      <Variable x:TypeArguments="x:String" Default="[Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), &quot;NAVIA_PATH\ChromeProfile&quot;)]" Name="User_Data_Folder" />
+      <Variable x:TypeArguments="x:String" Name="SessionData" />
+      <Variable x:TypeArguments="ui:UiElement" Name="Current_Window" />
+      <Variable x:TypeArguments="x:Int32" Name="detectedPort" />
+      <Variable x:TypeArguments="x:Boolean" Name="envCheckSuccess" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+
+    <!-- 1. Dynamically resolve NAVIA_PATH.exe -->
+    <ui:InvokeCode ContinueOnError="{x:Null}" DisplayName="Resolve NAVIA_PATH.exe" Code="Dim exePath As String = in_NavIAPathExe&#xA;If String.IsNullOrWhiteSpace(exePath) Then&#xA;    exePath = System.Environment.GetEnvironmentVariable(&quot;NAVIA_PATH_EXE&quot;)&#xA;End If&#xA;If String.IsNullOrWhiteSpace(exePath) Then&#xA;    Dim homeDir As String = System.Environment.GetEnvironmentVariable(&quot;NAVIA_PATH_HOME&quot;)&#xA;    If Not String.IsNullOrWhiteSpace(homeDir) Then&#xA;        exePath = System.IO.Path.Combine(homeDir, &quot;NAVIA_PATH.exe&quot;)&#xA;    End If&#xA;End If&#xA;If String.IsNullOrWhiteSpace(exePath) OrElse Not System.IO.File.Exists(exePath) Then&#xA;    Dim baseDir As String = System.AppDomain.CurrentDomain.BaseDirectory&#xA;    Dim cand1 As String = System.IO.Path.GetFullPath(System.IO.Path.Combine(baseDir, &quot;..&quot;, &quot;..&quot;, &quot;NAVIA_PATH.exe&quot;))&#xA;    If System.IO.File.Exists(cand1) Then exePath = cand1&#xA;End If&#xA;If String.IsNullOrWhiteSpace(exePath) OrElse Not System.IO.File.Exists(exePath) Then&#xA;    Dim localApp As String = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), &quot;NAVIA_PATH&quot;, &quot;NAVIA_PATH.exe&quot;)&#xA;    If System.IO.File.Exists(localApp) Then exePath = localApp&#xA;End If&#xA;If String.IsNullOrWhiteSpace(exePath) OrElse Not System.IO.File.Exists(exePath) Then&#xA;    Dim curExe As String = System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;NAVIA_PATH.exe&quot;)&#xA;    If System.IO.File.Exists(curExe) Then exePath = curExe&#xA;End If&#xA;If String.IsNullOrWhiteSpace(exePath) OrElse Not System.IO.File.Exists(exePath) Then&#xA;    Throw New System.IO.FileNotFoundException(&quot;NAVIA PATH is not installed or NAVIA_PATH.exe could not be found. Run the NAVIA PATH installation/setup first.&quot;)&#xA;End If&#xA;out_NavIAExe = exePath" sap:VirtualizedContainerService.HintSize="468,120" sap2010:WorkflowViewState.IdRef="InvokeCode_0">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_NavIAPathExe">[in_NavIAPathExe]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_NavIAExe">[naviaExePath]</OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+
+    <!-- 2. Verify and prepare runtime directory -->
+    <ui:InvokeCode ContinueOnError="{x:Null}" DisplayName="Check Runtime Environment" Code="out_Success = False&#xA;Dim localRoot As String = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), &quot;NAVIA_PATH&quot;)&#xA;Dim requiredFolders() As String = {&#xA;    localRoot,&#xA;    System.IO.Path.Combine(localRoot, &quot;Runs&quot;),&#xA;    System.IO.Path.Combine(localRoot, &quot;Logs&quot;),&#xA;    System.IO.Path.Combine(localRoot, &quot;Cache&quot;),&#xA;    System.IO.Path.Combine(localRoot, &quot;EdgeProfile&quot;),&#xA;    System.IO.Path.Combine(localRoot, &quot;ChromeProfile&quot;)&#xA;}&#xA;For Each f As String In requiredFolders&#xA;    If Not System.IO.Directory.Exists(f) Then System.IO.Directory.CreateDirectory(f)&#xA;Next&#xA;out_Success = True" sap:VirtualizedContainerService.HintSize="468,120" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+      <ui:InvokeCode.Arguments>
+        <OutArgument x:TypeArguments="x:Boolean" x:Key="out_Success">[envCheckSuccess]</OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+
+    <!-- 3. Attach to active window and capture URL and Session -->
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="[UiPath.UIAutomationNext.Enums.NAppCloseMode.Never]" DisplayName="Attach Current Chrome" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="468,500.6666666666667" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="[UiPath.UIAutomationNext.Enums.NAppOpenMode.Never]" OutUiElement="[Current_Window]" ScopeGuid="31a33a8f-50f5-418f-8833-37132dc4d3b5" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="416,284.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uix:NGetUrl CurrentUrl="[Current_URL]" DisplayName="Get URL" sap:VirtualizedContainerService.HintSize="382,57.333333333333336" sap2010:WorkflowViewState.IdRef="NGetUrl_1" ScopeIdentifier="31a33a8f-50f5-418f-8833-37132dc4d3b5" Version="V5" />
+            <uix:NGetBrowserData BrowserType="Chrome" DisplayName="Get Session" sap:VirtualizedContainerService.HintSize="382,167.33333333333334" sap2010:WorkflowViewState.IdRef="NGetBrowserData_1" ScopeIdentifier="31a33a8f-50f5-418f-8833-37132dc4d3b5" SessionData="[SessionData]" Version="V5" />
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.OCREngine>
+        <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+          <ActivityFunc.Argument>
+            <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+          </ActivityFunc.Argument>
+        </ActivityFunc>
+      </uix:NApplicationCard.OCREngine>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="0, 0, 1920, 1008" BrowserType="Chrome" Selector="&lt;html app='chrome.exe' /&gt;">
+          <uix:TargetApp.Url>
+            <InArgument x:TypeArguments="x:String" />
+          </uix:TargetApp.Url>
+        </uix:TargetApp>
+      </uix:NApplicationCard.TargetApp>
+    </uix:NApplicationCard>
+
+    <ui:LogMessage DisplayName="Log Session" sap:VirtualizedContainerService.HintSize="468,176.66666666666666" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;[NAVIA_PATH] Captured SessionData (size: &quot; &amp; If(String.IsNullOrEmpty(SessionData), &quot;0&quot;, SessionData.Length.ToString()) &amp; &quot; characters)&quot;]" />
+
+    <!-- 4. Open Chrome in Remote Debugging with persistent NAVIA_PATH profile -->
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="[UiPath.UIAutomationNext.Enums.NAppCloseMode.Never]" DisplayName="Open Debug Browser" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="468,624.6666666666666" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" OpenMode="[UiPath.UIAutomationNext.Enums.NAppOpenMode.Always]" OutUiElement="[out_NavIA_Window]" ScopeGuid="21850f9e-e147-4c29-be76-7f902cc6e920" UserDataFolderMode="[UiPath.UIAutomationNext.Enums.BrowserUserDataFolderMode.CustomFolder]" UserDataFolderPath="[User_Data_Folder]" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="416,408.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:MaximizeWindow DisplayName="Maximize" sap:VirtualizedContainerService.HintSize="382,57.333333333333336" sap2010:WorkflowViewState.IdRef="MaximizeWindow_1" Window="[out_NavIA_Window]" />
+            <uix:NSetBrowserData DisplayName="Restore Session" sap:VirtualizedContainerService.HintSize="382,176.66666666666666" sap2010:WorkflowViewState.IdRef="NSetBrowserData_1" ScopeIdentifier="21850f9e-e147-4c29-be76-7f902cc6e920" SessionData="[SessionData]" Version="V5" />
+            <uix:NGoToUrl DisplayName="Open Current URL" sap:VirtualizedContainerService.HintSize="382,114.66666666666667" sap2010:WorkflowViewState.IdRef="NGoToUrl_1" ScopeIdentifier="21850f9e-e147-4c29-be76-7f902cc6e920" Url="[Current_URL]" Version="V5" />
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.OCREngine>
+        <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+          <ActivityFunc.Argument>
+            <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+          </ActivityFunc.Argument>
+        </ActivityFunc>
+      </uix:NApplicationCard.OCREngine>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="0, 0, 1920, 1008" Arguments="[debug_arguments]" BrowserType="Chrome" Selector="&lt;html app='chrome.exe' /&gt;" Url="about:blank">
+          <uix:TargetApp.WorkingDirectory>
+            <InArgument x:TypeArguments="x:String" />
+          </uix:TargetApp.WorkingDirectory>
+        </uix:TargetApp>
+      </uix:NApplicationCard.TargetApp>
+    </uix:NApplicationCard>
+
+    <!-- 5. Verify Remote Debugging is active -->
+    <ui:InvokeCode ContinueOnError="{x:Null}" DisplayName="Verify Remote Debugging" Code="out_DetectedPort = 0&#xA;Dim devFile As String = System.IO.Path.Combine(in_UserDataFolder, &quot;DevToolsActivePort&quot;)&#xA;Dim deadline As System.DateTime = System.DateTime.UtcNow.AddSeconds(10)&#xA;Dim foundPort As Integer = 0&#xA;&#xA;While System.DateTime.UtcNow &lt; deadline&#xA;    If System.IO.File.Exists(devFile) Then&#xA;        Try&#xA;            Dim lines() As String = System.IO.File.ReadAllLines(devFile)&#xA;            If lines.Length &gt;= 2 AndAlso System.Text.RegularExpressions.Regex.IsMatch(lines(0).Trim(), &quot;^\d+$&quot;) Then&#xA;                Dim p As Integer = Integer.Parse(lines(0).Trim())&#xA;                If p &gt; 0 Then&#xA;                    Using client As New System.Net.Sockets.TcpClient()&#xA;                        Dim ar = client.BeginConnect(&quot;127.0.0.1&quot;, p, Nothing, Nothing)&#xA;                        Dim ok = ar.AsyncWaitHandle.WaitOne(System.TimeSpan.FromMilliseconds(500))&#xA;                        If ok AndAlso client.Connected Then&#xA;                            client.EndConnect(ar)&#xA;                            foundPort = p&#xA;                            Exit While&#xA;                        End If&#xA;                    End Using&#xA;                End If&#xA;            End If&#xA;        Catch ex As System.Exception&#xA;        End Try&#xA;    End If&#xA;    System.Threading.Thread.Sleep(250)&#xA;End While&#xA;&#xA;If foundPort &lt;= 0 Then&#xA;    Throw New System.TimeoutException(&quot;Remote Debugging port not detected in &quot; &amp; in_UserDataFolder &amp; &quot; after 10s. DevToolsActivePort missing or port closed.&quot;)&#xA;End If&#xA;out_DetectedPort = foundPort" sap:VirtualizedContainerService.HintSize="468,197.33333333333334" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_UserDataFolder">[User_Data_Folder]</InArgument>
+        <OutArgument x:TypeArguments="x:Int32" x:Key="out_DetectedPort">[detectedPort]</OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+
+    <ui:LogMessage DisplayName="Log Debug Port" sap:VirtualizedContainerService.HintSize="468,176.66666666666666" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;[NAVIA_PATH] Remote debugging confirmed on port: &quot; &amp; detectedPort.ToString()]" />
+
+    <!-- 6. Build execution arguments -->
+    <Sequence DisplayName="Build Arguments" sap:VirtualizedContainerService.HintSize="468,910.6666666666666" sap2010:WorkflowViewState.IdRef="Sequence_5">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Quote" sap:VirtualizedContainerService.HintSize="434,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[quote]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Chr(34)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Encode Prompt" sap:VirtualizedContainerService.HintSize="434,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[promptBase64]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Convert.ToBase64String(Encoding.UTF8.GetBytes(in_UserPrompt))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Run ID" sap:VirtualizedContainerService.HintSize="434,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[runId]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Guid.NewGuid().ToString("N")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Result Folder" sap:VirtualizedContainerService.HintSize="434,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[resultFolder]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NAVIA_PATH", "Runs", runId)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Result File" sap:VirtualizedContainerService.HintSize="434,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_8">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[resultFile]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[Path.Combine(resultFolder, "result.json")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:CreateDirectory ContinueOnError="{x:Null}" Output="{x:Null}" DisplayName="Create Result Folder" sap:VirtualizedContainerService.HintSize="434,124" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[resultFolder]" />
+      <Assign DisplayName="Start Arguments" sap:VirtualizedContainerService.HintSize="434,108" sap2010:WorkflowViewState.IdRef="Assign_9">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[startArguments]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[String.Format("run --prompt-base64 {0}{1}{0} --max-iterations {2} --result-file {0}{3}{0} --close-browser {4} --require-attached-browser true", quote, promptBase64, in_MaxIterations, resultFile, in_CloseBrowserAfterExecution.ToString().ToLowerInvariant())]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+
+    <ui:LogMessage DisplayName="Log Prompt" sap:VirtualizedContainerService.HintSize="468,176.66666666666666" sap2010:WorkflowViewState.IdRef="LogMessage_3" Message="[&quot;[NAVIA_PATH] Running agent with prompt: &quot; &amp; in_UserPrompt]" />
+
+    <!-- 7. Synchronous execution of NAVIA_PATH.exe -->
+    <ui:StartProcess Arguments="[startArguments]" DisplayName="Call NAVIA_PATH.exe" FileName="[naviaExePath]" sap:VirtualizedContainerService.HintSize="468,120" sap2010:WorkflowViewState.IdRef="StartProcess_1" StartType="Synchronously" Timeout="-1" WorkingDirectory="[resultFolder]" />
+
+    <!-- 8. Read and log result -->
+    <Assign DisplayName="Read Result" sap:VirtualizedContainerService.HintSize="468,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_10">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[out_ExecutionResult]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[System.IO.File.ReadAllText(resultFile, System.Text.Encoding.UTF8)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:LogMessage DisplayName="Log Result" sap:VirtualizedContainerService.HintSize="468,167.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_4" Message="[out_ExecutionResult]" />
+  </Sequence>
+</Activity>

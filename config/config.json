@@ -1,0 +1,51 @@
+{
+  "llm": {
+    "provider": "vertex",
+    "vertex": {
+      "project": "",
+      "location": "global",
+      "model": "gemini-3.8-flash",
+      "timeout_seconds": 60
+    },
+    "openai": {
+      "model": "gpt-4o",
+      "timeout_seconds": 60
+    },
+    "anthropic": {
+      "model": "claude-3-5-sonnet-latest",
+      "timeout_seconds": 60
+    },
+    "gemini": {
+      "model": "gemini-2.5-flash",
+      "timeout_seconds": 60
+    },
+    "azure_openai": {
+      "endpoint": "",
+      "deployment_name": "gpt-4o",
+      "api_version": "2024-08-01-preview",
+      "timeout_seconds": 60
+    }
+  },
+  "browser": {
+    "channel": "msedge",
+    "headless": false,
+    "browser_profiles": [
+      "EdgeProfile",
+      "ChromeProfile"
+    ],
+    "attach_timeout_seconds": 15
+  },
+  "agent": {
+    "max_iterations": 20,
+    "observation_section_kb": 32,
+    "max_consecutive_failures": 2,
+    "max_consecutive_more": 5,
+    "focus_timeout_ms": 1500
+  },
+  "diagnostics": {
+    "enabled": true,
+    "console": true,
+    "trace_file": true,
+    "include_trace_in_result": true
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "name": "NAVIA_PATH.Activities",
+  "projectId": "e8d2459b-381a-4299-8cf0-21a4732b1150",
+  "description": "UiPath Activity Library for NAVIA_PATH autonomous browser automation agent.",
+  "main": "NAVIA PATH Edge.xaml",
+  "dependencies": {
+    "UiPath.Excel.Activities": "2.24.4",
+    "UiPath.Mail.Activities": "1.24.16",
+    "UiPath.System.Activities": "25.12.2",
+    "UiPath.Testing.Activities": "24.10.4",
+    "UiPath.UIAutomation.Activities": "[25.10.33]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "24.10.18.0",
+  "projectVersion": "1.0.0",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "netFrameworkLazyLoading": false,
+    "isPausable": true,
+    "isAttended": false,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "workflowSerialization": "DataContract",
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false,
+    "mustRestoreAllDependencies": true,
+    "pipType": "ChildSession"
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Library",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": []
+    },
+    "fileInfoCollection": [],
+    "saveToCloud": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Windows"
+}

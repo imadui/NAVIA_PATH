@@ -1,0 +1,32 @@
+# Secrets et fichiers d'environnement locaux (ne jamais versionner)
+.env
+.env.*
+!.env.*.example
+
+# Runtime local utilisateur et logs
+Runs/
+Logs/
+Cache/
+EdgeProfile/
+ChromeProfile/
+*.log
+*.tmp
+*.bak
+*.old
+~*
+result.json
+trace.jsonl
+
+# UiPath Studio artefacts locaux
+uipath/**/.local/
+uipath/**/.tmh/
+uipath/**/.settings/
+uipath/**/.screenshots/
+uipath/**/.objects/
+uipath/**/.project/
+uipath/**/*.xaml.json
+
+# Fichiers temporaires Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
