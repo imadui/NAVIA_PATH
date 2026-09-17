@@ -1,4 +1,4 @@
-# NAVIA by Imad Eddine Berjamy
+# NAVIA: UI Automation Agent
 
 [![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
 [![Playwright](https://img.shields.io/badge/playwright-1.40%2B-green.svg)](https://playwright.dev/)
