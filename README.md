@@ -12,6 +12,16 @@
 
 ---
 
+<p align="center">
+  <a href="docs/NAVIA_DEMO.mp4">
+    <img src="docs/NAVIA_DEMO_Thumbnail.png" alt="Watch the demo" width="600">
+  </a>
+  <br>
+  <a href="docs/NAVIA_DEMO.mp4">▶️ Watch the demo</a>
+</p>
+
+---
+
 ## Key Highlights
 
 - **Standalone & Autonomous**: Packaged as a single Windows x64 executable (`NAVIA_PATH.exe`). No external Python runtime, pip dependencies, or virtual environment required on user machines.
