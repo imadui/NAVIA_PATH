@@ -12,11 +12,7 @@
 
 ---
 
-<p align="center">
-  <a href="docs/NAVIA_DEMO.mp4">
-    <img src="docs/NAVIA_DEMO_Preview.png" alt="NAVIA Demo Video - Click to Play" width="800">
-  </a>
-</p>
+> 🎥 **Live Demonstration**: Discover NAVIA in action automating multi-step browser workflows from natural language prompts — **[View Demo Walkthrough (7m 26s)](docs/NAVIA_DEMO.mp4)**.
 
 ---
 
