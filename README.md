@@ -29,7 +29,7 @@ It pairs deterministic browser control with multimodal context reasoning to:
 
 ## Quick Start
 
-1. **Extract** the release archive (`NAVIA_PATH-v1.0.0-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
+1. **Extract** the release archive (`NAVIA_PATH-v1.1.2-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
 2. **Choose your LLM provider** and create your configuration file in `config\providers\` (e.g., copy `.env.vertex.example` to `.env.vertex`).
 3. **Run the pre-flight check**:
    ```powershell
