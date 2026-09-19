@@ -6,7 +6,7 @@ Get started with NAVIA_PATH in 5 minutes.
 
 ## Step 1: Download & Extract
 
-Extract the archive `NAVIA_PATH-v1.1.2-windows-x64.zip` into your directory of choice, for example:
+Extract the archive `NAVIA_PATH-v1.1.6-windows-x64.zip` into your directory of choice, for example:
 ```text
 C:\NAVIA_PATH
 ```
@@ -58,7 +58,7 @@ Execute the built-in diagnostic command:
 The report should confirm your setup:
 ```text
 ============================================================
- NAVIA_PATH v1.1.2 - Runtime Environment Check
+ NAVIA_PATH v1.1.6 - Runtime Environment Check
 ============================================================
 Executable     : C:\NAVIA_PATH\NAVIA_PATH.exe
 Runtime Root   : C:\Users\...\AppData\Local\NAVIA_PATH

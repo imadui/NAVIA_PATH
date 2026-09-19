@@ -1,10 +1,10 @@
-# Release Notes — NAVIA_PATH v1.1.2
+# Release Notes — NAVIA_PATH v1.1.6
 
 Initial public release of **NAVIA_PATH**, the autonomous intelligent browser automation solution for enterprise workflows and RPA robots.
 
 ---
 
-## What's New in v1.1.2
+## What's New in v1.1.6
 
 ### Intelligent Multi-Step Web Navigation
 - Autonomous problem solving across complex web portals, multi-tab workflows, and dynamic single-page applications.

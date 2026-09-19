@@ -46,6 +46,6 @@
     "enabled": true,
     "console": true,
     "trace_file": true,
-    "include_trace_in_result": true
+    "include_trace_in_result": false
   }
 }

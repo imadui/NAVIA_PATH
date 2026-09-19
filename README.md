@@ -1,18 +1,18 @@
-# NAVIA: UI Automation Agent
+# NAVIA_PATH
 
-[![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
-[![Playwright](https://img.shields.io/badge/playwright-1.40%2B-green.svg)](https://playwright.dev/)
-[![LLM Multi-Provider](https://img.shields.io/badge/LLM-Vertex%20%7C%20OpenAI%20%7C%20Anthropic%20%7C%20Gemini-orange.svg)]()
-[![UiPath Ready](https://img.shields.io/badge/UiPath-Library%20Activities-blueviolet.svg)]()
-
-**Python-based AI browser agent that turns a single "PROMPT" into multi-step web automation.**
-
-- Built with Python and Playwright, with reusable UiPath activities for Chrome and Edge.
-- Model-agnostic architecture supporting compatible models across OpenAI, Azure OpenAI, Anthropic, Google Gemini and Vertex AI.
+**Autonomous multi-provider intelligent Web automation agent for RPA robots and Windows workstations.**
 
 ---
 
-> 🎥 **Live Demonstration**: Discover NAVIA in action automating multi-step browser workflows from natural language prompts — **[View Demo Walkthrough (7m 26s)](docs/NAVIA_DEMO.mp4)**.
+## Overview
+
+NAVIA_PATH is an autonomous, compiled runtime designed to allow automation platforms (UiPath, background scripts, enterprise schedulers) to interact intelligently with complex Web applications through large language models.
+
+It pairs deterministic browser control with multimodal context reasoning to:
+- Execute multi-step business journeys across pages and tabs.
+- Extract structured data from complex tables, dashboards, and dynamic views.
+- Interact seamlessly with enterprise browsers (**Microsoft Edge** and **Google Chrome**).
+- Maintain persistent, authenticated browser sessions to eliminate repetitive logins.
 
 ---
 
@@ -29,7 +29,7 @@
 
 ## Quick Start
 
-1. **Extract** the release archive (`NAVIA_PATH-v1.1.2-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
+1. **Extract** the release archive (`NAVIA_PATH-v1.1.6-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
 2. **Choose your LLM provider** and create your configuration file in `config\providers\` (e.g., copy `.env.vertex.example` to `.env.vertex`).
 3. **Run the pre-flight check**:
    ```powershell

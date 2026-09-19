@@ -148,8 +148,6 @@
       </uix:NApplicationCard.TargetApp>
     </uix:NApplicationCard>
 
-    <ui:LogMessage DisplayName="Log Session" sap:VirtualizedContainerService.HintSize="468,176.66666666666666" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[&quot;[NAVIA_PATH] Captured SessionData (size: &quot; &amp; If(String.IsNullOrEmpty(SessionData), &quot;0&quot;, SessionData.Length.ToString()) &amp; &quot; characters)&quot;]" />
-
     <!-- 4. Open Chrome in Remote Debugging with persistent NAVIA_PATH profile -->
     <uix:NApplicationCard AttachMode="ByInstance" CloseMode="[UiPath.UIAutomationNext.Enums.NAppCloseMode.Never]" DisplayName="Open Debug Browser" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="468,624.6666666666666" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" OpenMode="[UiPath.UIAutomationNext.Enums.NAppOpenMode.Always]" OutUiElement="[out_NavIA_Window]" ScopeGuid="21850f9e-e147-4c29-be76-7f902cc6e920" UserDataFolderMode="[UiPath.UIAutomationNext.Enums.BrowserUserDataFolderMode.CustomFolder]" UserDataFolderPath="[User_Data_Folder]" Version="V2">
       <uix:NApplicationCard.Body>
@@ -192,8 +190,6 @@
         <OutArgument x:TypeArguments="x:Int32" x:Key="out_DetectedPort">[detectedPort]</OutArgument>
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
-
-    <ui:LogMessage DisplayName="Log Debug Port" sap:VirtualizedContainerService.HintSize="468,176.66666666666666" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[&quot;[NAVIA_PATH] Remote debugging confirmed on port: &quot; &amp; detectedPort.ToString()]" />
 
     <!-- 6. Build execution arguments -->
     <Sequence DisplayName="Build Arguments" sap:VirtualizedContainerService.HintSize="468,910.6666666666666" sap2010:WorkflowViewState.IdRef="Sequence_5">
