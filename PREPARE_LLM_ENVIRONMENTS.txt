@@ -29,10 +29,10 @@
    gcloud auth application-default login
 
 4. Validate your configuration:
-   .\NAVIA_PATH.exe check --provider vertex
+   .\NAVIA_PATH_v1.1.7.exe check --provider vertex
 
 5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
+   .\NAVIA_PATH_v1.1.7.exe --prompt "Your objective..."
 
 
 ================================================================================
@@ -53,10 +53,10 @@
 
 4. Validate your configuration:
    $env:NAVIA_PROVIDER = "gemini"
-   .\NAVIA_PATH.exe check
+   .\NAVIA_PATH_v1.1.7.exe check
 
 5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
+   .\NAVIA_PATH_v1.1.7.exe --prompt "Your objective..."
 
 
 ================================================================================
@@ -77,10 +77,10 @@
 
 4. Validate your configuration:
    $env:NAVIA_PROVIDER = "openai"
-   .\NAVIA_PATH.exe check
+   .\NAVIA_PATH_v1.1.7.exe check
 
 5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
+   .\NAVIA_PATH_v1.1.7.exe --prompt "Your objective..."
 
 
 ================================================================================
@@ -101,10 +101,10 @@
 
 4. Validate your configuration:
    $env:NAVIA_PROVIDER = "anthropic"
-   .\NAVIA_PATH.exe check
+   .\NAVIA_PATH_v1.1.7.exe check
 
 5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
+   .\NAVIA_PATH_v1.1.7.exe --prompt "Your objective..."
 
 
 ================================================================================
@@ -126,7 +126,7 @@
 
 4. Validate your configuration:
    $env:NAVIA_PROVIDER = "azure_openai"
-   .\NAVIA_PATH.exe check
+   .\NAVIA_PATH_v1.1.7.exe check
 
 5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
+   .\NAVIA_PATH_v1.1.7.exe --prompt "Your objective..."

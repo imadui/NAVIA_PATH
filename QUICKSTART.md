@@ -6,7 +6,7 @@ Get started with NAVIA_PATH in 5 minutes.
 
 ## Step 1: Download & Extract
 
-Extract the archive `NAVIA_PATH-v1.1.6-windows-x64.zip` into your directory of choice, for example:
+Extract the archive `NAVIA_PATH-v1.1.7-windows-x64.zip` into your directory of choice, for example:
 ```text
 C:\NAVIA_PATH
 ```
@@ -52,15 +52,15 @@ In the `config\providers\` subfolder, copy the example template for your chosen 
 Execute the built-in diagnostic command:
 
 ```powershell
-.\NAVIA_PATH.exe --check
+.\NAVIA_PATH_v1.1.7.exe --check
 ```
 
 The report should confirm your setup:
 ```text
 ============================================================
- NAVIA_PATH v1.1.6 - Runtime Environment Check
+ NAVIA_PATH v1.1.7 - Runtime Environment Check
 ============================================================
-Executable     : C:\NAVIA_PATH\NAVIA_PATH.exe
+Executable     : C:\NAVIA_PATH\NAVIA_PATH_v1.1.7.exe
 Runtime Root   : C:\Users\...\AppData\Local\NAVIA_PATH
 Write Access   : OK
 Provider       : vertex
@@ -81,7 +81,7 @@ RESULT : OK - NAVIA_PATH is ready for execution.
 
 ### Command Line:
 ```powershell
-.\NAVIA_PATH.exe --prompt "Navigate to https://example.com and extract page details"
+.\NAVIA_PATH_v1.1.7.exe --prompt "Navigate to https://example.com and extract page details"
 ```
 
 ### From UiPath Studio:

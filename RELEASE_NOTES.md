@@ -1,10 +1,10 @@
-# Release Notes — NAVIA_PATH v1.1.6
+# Release Notes — NAVIA_PATH v1.1.7
 
 Initial public release of **NAVIA_PATH**, the autonomous intelligent browser automation solution for enterprise workflows and RPA robots.
 
 ---
 
-## What's New in v1.1.6
+## What's New in v1.1.7
 
 ### Intelligent Multi-Step Web Navigation
 - Autonomous problem solving across complex web portals, multi-tab workflows, and dynamic single-page applications.
@@ -39,6 +39,6 @@ Initial public release of **NAVIA_PATH**, the autonomous intelligent browser aut
 - Dedicated, clean `.env.<provider>` templates with zero hardcoded credentials.
 
 ### Autonomous Standalone Windows Distribution
-- Single x64 binary (`NAVIA_PATH.exe`).
+- Single x64 binary (`NAVIA_PATH_v1.1.7.exe`).
 - Zero Python installation or package management needed on target workstations.
-- Built-in diagnostic CLI command (`NAVIA_PATH.exe --check`) for pre-flight readiness checks.
+- Built-in diagnostic CLI command (`NAVIA_PATH_v1.1.7.exe --check`) for pre-flight readiness checks.
