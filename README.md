@@ -2,6 +2,9 @@
 
 **Autonomous multi-provider intelligent Web automation agent for RPA robots and Windows workstations.**
 
+> **"LLM decides, Python executes."**  
+> *Prompt-driven browser automation for UiPath/RPA, powered by Python, Playwright and model-agnostic LLMs.*
+
 ---
 
 ## Overview
@@ -88,6 +91,17 @@ Options:
   --check                   Quick health and configuration check
   --version, -v             Display version information
 ```
+
+---
+
+## Author & Contact
+
+**Imad Eddine Berjamy**  
+*Senior Automation Engineer & UiPath Tech Lead*
+
+- **GitHub**: [@imadui](https://github.com/imadui)
+- **LinkedIn**: [linkedin.com/in/berjamy](https://linkedin.com/in/berjamy)
+- **Email**: [imad.berjamy@outlook.com](mailto:imad.berjamy@outlook.com)
 
 ---
 
