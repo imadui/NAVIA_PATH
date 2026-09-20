@@ -1,0 +1,69 @@
+{
+  "DisplayName": "NAVIA PATH Chrome",
+  "Tooltip": null,
+  "HelpLink": null,
+  "Color": null,
+  "OriginalIconFileName": null,
+  "Arguments": [
+    {
+      "Name": "in_UserPrompt",
+      "DisplayName": "in_UserPrompt",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "write the url in an attribute named url",
+      "Widget": null,
+      "IsRequired": true,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "in_MaxIterations",
+      "DisplayName": "in_MaxIterations",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "20",
+      "Widget": null,
+      "IsRequired": true,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "in_CloseBrowserAfterExecution",
+      "DisplayName": "in_CloseBrowserAfterExecution",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "False",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "out_ExecutionResult",
+      "DisplayName": "out_ExecutionResult",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": null,
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "out_NavIA_Window",
+      "DisplayName": "out_NavIA_Window",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": null,
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    }
+  ]
+}

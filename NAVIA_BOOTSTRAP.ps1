@@ -88,6 +88,13 @@ if ([string]::IsNullOrWhiteSpace($ActiveSource)) {
         }
         catch {}
     }
+    $NugetNavia = Join-Path $PackagesRoot "navia"
+    if (Test-Path -LiteralPath $NugetNavia) {
+        try {
+            $CandidateDirs += (Get-ChildItem -LiteralPath $NugetNavia -Filter "Runtime" -Directory -Recurse -ErrorAction SilentlyContinue | Select-Object -ExpandProperty FullName)
+        }
+        catch {}
+    }
 
     foreach ($cand in $CandidateDirs) {
         if (-not [string]::IsNullOrWhiteSpace($cand) -and (Test-Path -LiteralPath $cand)) {

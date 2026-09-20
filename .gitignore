@@ -25,7 +25,8 @@ uipath/**/.settings/
 uipath/**/.screenshots/
 uipath/**/.objects/
 uipath/**/.project/
-uipath/**/*.xaml.json
+# preserve activity metadata json files
+!uipath/**/*.xaml.json
 
 # Fichiers temporaires Windows
 Thumbs.db
