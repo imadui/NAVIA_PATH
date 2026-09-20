@@ -2,9 +2,6 @@
 
 **Autonomous multi-provider intelligent Web automation agent for RPA robots and Windows workstations.**
 
-> **"LLM decides, Python executes."**  
-> *Prompt-driven browser automation for UiPath/RPA, powered by Python, Playwright and model-agnostic LLMs.*
-
 ---
 
 ## Overview
@@ -21,26 +18,26 @@ It pairs deterministic browser control with multimodal context reasoning to:
 
 ## Key Highlights
 
-- **Standalone & Autonomous**: Packaged as a single Windows x64 executable (`NAVIA_PATH_v1.1.7.exe`). No external Python runtime, pip dependencies, or virtual environment required on user machines.
+- **Standalone & Autonomous**: Packaged as a single Windows x64 executable (`NAVIA_PATH.exe`). No external Python runtime, pip dependencies, or virtual environment required on user machines.
 - **Ready-to-Use UiPath Integration**: Ships with the `NAVIA_PATH.Activities` library (`NAVIA PATH - Edge`, `NAVIA PATH - Chrome`) for native UiPath Studio workflows.
 - **Multi-Provider Architecture**: Native support for **Google Vertex AI**, **Google Gemini Direct API**, **OpenAI**, **Anthropic Claude**, and **Azure OpenAI Service**.
 - **External Configuration**: Credentials, endpoints, models, and timeouts are fully configured outside the binary via isolated `.env.<provider>` files.
 - **Persistent Sessions**: User session cookies and profiles are maintained automatically in `%LOCALAPPDATA%\NAVIA_PATH`.
-- **Integrated Health Diagnostics**: Instant environment and credentials validation via `NAVIA_PATH_v1.1.7.exe --check`.
+- **Integrated Health Diagnostics**: Instant environment and credentials validation via `NAVIA_PATH.exe --check`.
 
 ---
 
 ## Quick Start
 
-1. **Extract** the release archive (`NAVIA_PATH-v1.1.7-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
+1. **Extract** the release archive (`NAVIA_PATH-v1.1.9-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
 2. **Choose your LLM provider** and create your configuration file in `config\providers\` (e.g., copy `.env.vertex.example` to `.env.vertex`).
 3. **Run the pre-flight check**:
    ```powershell
-   .\NAVIA_PATH_v1.1.7.exe --check
+   .\NAVIA_PATH.exe --check
    ```
 4. **Execute your first prompt**:
    ```powershell
-   .\NAVIA_PATH_v1.1.7.exe --prompt "Navigate to the internal portal and extract order status"
+   .\NAVIA_PATH.exe --prompt "Navigate to the internal portal and extract order status"
    ```
 
 For a detailed step-by-step walkthrough, see **[QUICKSTART.md](QUICKSTART.md)**.  
@@ -66,14 +63,14 @@ The distribution includes the ready-to-import activity project in `uipath\NAVIA_
 - **`NAVIA PATH - Edge`**: Automates a persistent Microsoft Edge session.
 - **`NAVIA PATH - Chrome`**: Automates a persistent Google Chrome session.
 
-The activities dynamically discover `NAVIA_PATH_v1.1.7.exe`, ensure debugging prerequisites, run synchronously without background console windows, and populate `out_ExecutionResult` with structured JSON data.
+The activities dynamically discover `NAVIA_PATH.exe`, ensure debugging prerequisites, run synchronously without background console windows, and populate `out_ExecutionResult` with structured JSON data.
 
 ---
 
 ## CLI Reference
 
 ```text
-NAVIA_PATH_v1.1.7.exe [--check] [--version] [run] [OPTIONS]
+NAVIA_PATH.exe [--check] [--version] [run] [OPTIONS]
 
 Commands:
   check                     Verify configuration and runtime environment
@@ -91,17 +88,6 @@ Options:
   --check                   Quick health and configuration check
   --version, -v             Display version information
 ```
-
----
-
-## Author & Contact
-
-**Imad Eddine Berjamy**  
-*Senior Automation Engineer & UiPath Tech Lead*
-
-- **GitHub**: [@imadui](https://github.com/imadui)
-- **LinkedIn**: [linkedin.com/in/berjamy](https://linkedin.com/in/berjamy)
-- **Email**: [imad.berjamy@outlook.com](mailto:imad.berjamy@outlook.com)
 
 ---
 
