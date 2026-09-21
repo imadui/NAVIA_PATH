@@ -29,19 +29,50 @@ It pairs deterministic browser control with multimodal context reasoning to:
 
 ## Quick Start
 
-1. **Extract** the release archive (`NAVIA_PATH-v1.1.11-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
-2. **Choose your LLM provider** and create your configuration file in `config\providers\` (e.g., copy `.env.vertex.example` to `.env.vertex`).
-3. **Run the pre-flight check**:
-   ```powershell
-   .\NAVIA_PATH.exe --check
-   ```
-4. **Execute your first prompt**:
-   ```powershell
-   .\NAVIA_PATH.exe --prompt "Navigate to the internal portal and extract order status"
-   ```
+### 1. Extract
+Extract the release archive (`NAVIA_PATH-v1.1.12-windows-x64.zip`) into your target folder (e.g., `C:\NAVIA_PATH`).
+
+### 2. Configure Your Provider
+In `config\providers\`, copy the example file for your provider:
+```powershell
+copy config\providers\.env.vertex.example config\providers\.env.vertex
+```
+Edit `.env.vertex` with your project ID:
+```env
+NAVIA_PROVIDER=vertex
+NAVIA_VERTEX_PROJECT=my-gcp-project
+NAVIA_VERTEX_LOCATION=global
+NAVIA_VERTEX_MODEL=gemini-3.8-flash
+NAVIA_VERTEX_TIMEOUT_SECONDS=60
+GOOGLE_APPLICATION_CREDENTIALS=credentials\vertex_credentials.json
+```
+
+### 3. Place Credentials (if required)
+Place your Google service account / ADC credential JSON file at:
+```text
+credentials\vertex_credentials.json
+```
+*(Alternatively, if you already authenticated via `gcloud auth application-default login`, standard ADC at `%APPDATA%\gcloud\application_default_credentials.json` is automatically discovered).*
+
+### 4. Run Environment Check
+Double-click `CHECK_ENVIRONMENT.cmd` (or from cmd/terminal: `CHECK_ENVIRONMENT.cmd`).
+Advanced users in PowerShell can also run:
+```powershell
+.\CHECK_ENVIRONMENT.ps1
+```
+This prepares and validates the local runtime under `%LOCALAPPDATA%\NAVIA_PATH`.
+
+### 5. Start Using NAVIA
+Once `status = OK` is reported, NAVIA is immediately usable from:
+- **Command Line / PowerShell**:
+  ```powershell
+  %LOCALAPPDATA%\NAVIA_PATH\NAVIA_PATH.exe --prompt "Open portal and check status"
+  ```
+- **UiPath Studio**: Use the activities `NAVIA PATH - Edge` or `NAVIA PATH - Chrome`.
 
 For a detailed step-by-step walkthrough, see **[QUICKSTART.md](QUICKSTART.md)**.  
 For provider-specific configuration guides, see **[PREPARE_LLM_ENVIRONMENTS.txt](PREPARE_LLM_ENVIRONMENTS.txt)**.
+For credentials guide and relative path resolution, see **[credentials\README.txt](credentials/README.txt)**.
 
 ---
 
@@ -70,10 +101,12 @@ The activities dynamically discover `NAVIA_PATH.exe`, ensure debugging prerequis
 ## CLI Reference
 
 ```text
-NAVIA_PATH.exe [--check] [--version] [run] [OPTIONS]
+NAVIA_PATH.exe [--check] [--check-runtime] [--version] [run] [OPTIONS]
 
 Commands:
-  check                     Verify configuration and runtime environment
+  check                     Verify configuration, provider authentication and browser
+  check-runtime             Fast local-only check of runtime consistency
+  mark-ready                Write local NAVIA_READY.json marker
   run                       Execute the agent on a user prompt
 
 Options:
@@ -85,7 +118,8 @@ Options:
   --require-attached-browser BOOL
                             Require strict attachment to existing debug browser
   --browser CHANNEL         Target browser channel: msedge or chrome
-  --check                   Quick health and configuration check
+  --check                   Comprehensive health and configuration check
+  --check-runtime           Fast local-only runtime integrity check
   --version, -v             Display version information
 ```
 

@@ -1,7 +1,15 @@
-# Secrets et fichiers d'environnement locaux (ne jamais versionner)
-.env
-.env.*
+# Credentials & secrets (NEVER commit real credentials)
+credentials/*.json
+credentials/**
+!credentials/README.txt
+!credentials/.gitkeep
+config/providers/.env.*
 !.env.*.example
+!config/providers/.env.*.example
+*.pem
+*.pfx
+*.key
+application_default_credentials.json
 
 # Runtime local utilisateur et logs
 Runs/

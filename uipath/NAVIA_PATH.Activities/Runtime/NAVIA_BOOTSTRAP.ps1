@@ -4,11 +4,7 @@
 .DESCRIPTION
     Single source of truth for runtime synchronization and pre-flight validation.
     Compatible with Windows PowerShell ConstrainedLanguage / RemoteSigned mode.
-    Works for:
-      - machine Bouygues Telecom (synchronization from RPA_SHARE when reachable)
-      - external/public machines (bundled NuGet Runtime or local runtime fallback)
-      - UiPath Edge / Chrome activities
-      - standalone PowerShell execution
+    Delegates to CHECK_ENVIRONMENT.ps1 when available, or provides self-contained fallback.
 #>
 [CmdletBinding()]
 param(
@@ -21,6 +17,19 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# If CHECK_ENVIRONMENT.ps1 is available, delegate to it as the canonical preparation script
+$CheckEnvScript = Join-Path $PSScriptRoot "CHECK_ENVIRONMENT.ps1"
+if (Test-Path -LiteralPath $CheckEnvScript) {
+    & $CheckEnvScript @PSBoundParameters
+    exit $LASTEXITCODE
+}
+
+# Fallback: check if CHECK_ENVIRONMENT.ps1 exists in current directory or source directory
+if (-not [string]::IsNullOrWhiteSpace($SourcePath) -and (Test-Path -LiteralPath (Join-Path $SourcePath "CHECK_ENVIRONMENT.ps1"))) {
+    & (Join-Path $SourcePath "CHECK_ENVIRONMENT.ps1") @PSBoundParameters
+    exit $LASTEXITCODE
+}
+
 if ([string]::IsNullOrWhiteSpace($InstallRoot)) {
     $InstallRoot = Join-Path $env:LOCALAPPDATA "NAVIA_PATH"
 }
@@ -31,37 +40,24 @@ foreach ($dir in @("Runs", "Logs", "Cache", "EdgeProfile", "ChromeProfile", "Sec
     New-Item -ItemType Directory -Path (Join-Path $InstallRoot $dir) -Force | Out-Null
 }
 
-# 2. Context Determination: machine Bouygues Telecom vs external/public machine
-$RpaShareDefault = "\\svm-prod1.rsi.prd.mlb.nbyt.fr\RPA_SHARE\Imad\NavIA Pass"
-$IsBouyguesTelecom = $false
+# 2. Context Determination: Generic explicit source or environment
 $ActiveSource = ""
 
 # Check if an explicit source was supplied
 if (-not [string]::IsNullOrWhiteSpace($SourcePath) -and (Test-Path -LiteralPath $SourcePath)) {
-    $ActiveSource = $SourcePath
-    if ($SourcePath -like "*svm-prod1*" -or $SourcePath -like "*RPA_SHARE*") {
-        $IsBouyguesTelecom = $true
-    }
+    $ActiveSource = (Resolve-Path -LiteralPath $SourcePath).Path
 }
 
-# Detect RPA_SHARE (preferred on machine Bouygues Telecom)
+# Generic network share via NAVIA_SHARE_PATH
 if ([string]::IsNullOrWhiteSpace($ActiveSource)) {
     $ShareEnv = $env:NAVIA_SHARE_PATH
-    $CandidateShares = @()
-    if (-not [string]::IsNullOrWhiteSpace($ShareEnv)) { $CandidateShares += $ShareEnv }
-    $CandidateShares += $RpaShareDefault
-
-    foreach ($cand in $CandidateShares) {
+    if (-not [string]::IsNullOrWhiteSpace($ShareEnv) -and (Test-Path -LiteralPath $ShareEnv)) {
         try {
-            if ((Test-Path -LiteralPath $cand) -and (Test-Path -LiteralPath (Join-Path $cand "CURRENT_VERSION.txt"))) {
-                $ActiveSource = $cand
-                $IsBouyguesTelecom = $true
-                break
+            if (Test-Path -LiteralPath (Join-Path $ShareEnv "CURRENT_VERSION.txt")) {
+                $ActiveSource = (Resolve-Path -LiteralPath $ShareEnv).Path
             }
         }
-        catch {
-            # Network share inaccessible or DNS unresolvable
-        }
+        catch {}
     }
 }
 
@@ -100,7 +96,7 @@ if ([string]::IsNullOrWhiteSpace($ActiveSource)) {
         if (-not [string]::IsNullOrWhiteSpace($cand) -and (Test-Path -LiteralPath $cand)) {
             $manifest = Join-Path $cand "CURRENT_VERSION.txt"
             if (Test-Path -LiteralPath $manifest) {
-                $ActiveSource = $cand
+                $ActiveSource = (Resolve-Path -LiteralPath $cand).Path
                 break
             }
         }
@@ -112,8 +108,8 @@ function Read-ManifestData([string]$FilePath) {
     if (Test-Path -LiteralPath $FilePath) {
         Get-Content -LiteralPath $FilePath | ForEach-Object {
             $line = $_.Trim()
-            if ($line -match '^([^=]+)=(.*)$') {
-                $data[$matches[1].Trim()] = $matches[2].Trim()
+            if ($line -and -not $line.StartsWith("#") -and $line -match '^([^=]+)=(.*)$') {
+                $data[$matches[1].Trim().ToUpper()] = $matches[2].Trim()
             }
         }
     }
@@ -138,8 +134,8 @@ if (-not [string]::IsNullOrWhiteSpace($ActiveSource)) {
 
         $NeedCopy = $true
         if ((Test-Path -LiteralPath $LocalVersionedExe) -and -not [string]::IsNullOrWhiteSpace($ExpectedHash)) {
-            $curHash = (Get-FileHash -LiteralPath $LocalVersionedExe -Algorithm SHA256).Hash
-            if ($curHash -eq $ExpectedHash) {
+            $curHash = (Get-FileHash -LiteralPath $LocalVersionedExe -Algorithm SHA256).Hash.ToUpper()
+            if ($curHash -eq $ExpectedHash.ToUpper()) {
                 $NeedCopy = $false
             }
         }
@@ -150,8 +146,8 @@ if (-not [string]::IsNullOrWhiteSpace($ActiveSource)) {
             Copy-Item -LiteralPath $SourceExe -Destination $tempExe -Force
 
             if (-not [string]::IsNullOrWhiteSpace($ExpectedHash)) {
-                $dlHash = (Get-FileHash -LiteralPath $tempExe -Algorithm SHA256).Hash
-                if ($dlHash -ne $ExpectedHash) {
+                $dlHash = (Get-FileHash -LiteralPath $tempExe -Algorithm SHA256).Hash.ToUpper()
+                if ($dlHash -ne $ExpectedHash.ToUpper()) {
                     Remove-Item -LiteralPath $tempExe -Force -ErrorAction SilentlyContinue
                     throw "SHA256 mismatch for downloaded binary from $SourceExe"
                 }
@@ -179,56 +175,35 @@ if (-not [string]::IsNullOrWhiteSpace($ActiveSource)) {
     $SourceConfig = Join-Path $ActiveSource "config"
     $LocalConfig = Join-Path $InstallRoot "config"
     if (Test-Path -LiteralPath $SourceConfig) {
-        & robocopy.exe $SourceConfig $LocalConfig /E /COPY:DAT /R:2 /W:2 /NP | Out-Null
+        if (-not (Test-Path -LiteralPath $LocalConfig)) {
+            New-Item -ItemType Directory -Path $LocalConfig -Force | Out-Null
+        }
+        Get-ChildItem -LiteralPath $SourceConfig -Recurse -File -ErrorAction SilentlyContinue | ForEach-Object {
+            $relPath = $_.FullName.Substring($SourceConfig.Length).TrimStart('\', '/')
+            $destFile = Join-Path $LocalConfig $relPath
+            $destDir = Split-Path -Parent $destFile
+            if (-not (Test-Path -LiteralPath $destDir)) {
+                New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+            }
+            Copy-Item -LiteralPath $_.FullName -Destination $destFile -Force
+        }
     }
 
-    # 5. Machine Bouygues Telecom context: prepare approved local ADC
-    if ($IsBouyguesTelecom) {
-        $SourceSecrets = Join-Path $ActiveSource "Secrets\application_default_credentials.json"
-        $LocalSecretsDir = Join-Path $InstallRoot "Secrets"
-        $LocalSecretsFile = Join-Path $LocalSecretsDir "application_default_credentials.json"
+    # 5. Local credentials preparation if Secrets folder exists in source
+    $SourceSecrets = Join-Path $ActiveSource "Secrets\application_default_credentials.json"
+    $LocalSecretsDir = Join-Path $InstallRoot "Secrets"
+    $LocalSecretsFile = Join-Path $LocalSecretsDir "application_default_credentials.json"
 
-        if (Test-Path -LiteralPath $SourceSecrets) {
-            New-Item -ItemType Directory -Path $LocalSecretsDir -Force | Out-Null
-            $copyCreds = $true
-            if (Test-Path -LiteralPath $LocalSecretsFile) {
-                $sItem = Get-Item -LiteralPath $SourceSecrets
-                $lItem = Get-Item -LiteralPath $LocalSecretsFile
-                if ($sItem.Length -eq $lItem.Length -and $sItem.LastWriteTimeUtc -le $lItem.LastWriteTimeUtc) {
-                    $copyCreds = $false
-                }
-            }
-            if ($copyCreds) {
-                Copy-Item -LiteralPath $SourceSecrets -Destination $LocalSecretsFile -Force
-            }
-            $env:GOOGLE_APPLICATION_CREDENTIALS = $LocalSecretsFile
-
-            # Ensure local .env.vertex references the local ADC file
-            $localEnvVertex = Join-Path $LocalConfig "providers\.env.vertex"
-            if (Test-Path -LiteralPath $localEnvVertex) {
-                $envLines = Get-Content -LiteralPath $localEnvVertex
-                $newLines = @()
-                $foundGAC = $false
-                foreach ($el in $envLines) {
-                    if ($el -match '^GOOGLE_APPLICATION_CREDENTIALS=') {
-                        $newLines += "GOOGLE_APPLICATION_CREDENTIALS=$LocalSecretsFile"
-                        $foundGAC = $true
-                    } else {
-                        $newLines += $el
-                    }
-                }
-                if (-not $foundGAC) {
-                    $newLines += "GOOGLE_APPLICATION_CREDENTIALS=$LocalSecretsFile"
-                }
-                $newLines | Set-Content -LiteralPath $localEnvVertex -Encoding utf8
-            }
-        }
+    if (Test-Path -LiteralPath $SourceSecrets) {
+        New-Item -ItemType Directory -Path $LocalSecretsDir -Force | Out-Null
+        Copy-Item -LiteralPath $SourceSecrets -Destination $LocalSecretsFile -Force
+        $env:GOOGLE_APPLICATION_CREDENTIALS = $LocalSecretsFile
     }
 }
 
 # 6. Verify executable presence
 if (-not (Test-Path -LiteralPath $StableExe)) {
-    throw "NAVIA_PATH.exe not found in $InstallRoot and no bootstrap source could provide it."
+    throw "NAVIA_PATH.exe not found in $InstallRoot and no bootstrap source could provide it. Run CHECK_ENVIRONMENT.ps1."
 }
 
 # 7. Execute ONLY the local binary for canonical environment check
@@ -250,7 +225,18 @@ if ($Json) {
 $Code = $LASTEXITCODE
 
 if ($Code -ne 0) {
+    Remove-Item -LiteralPath (Join-Path $InstallRoot "NAVIA_READY.json") -Force -ErrorAction SilentlyContinue
     exit $Code
 }
+
+# 8. Mark Ready
+$ReadyArgs = @("--mark-ready")
+if (-not [string]::IsNullOrWhiteSpace($Provider)) {
+    $ReadyArgs += @("--provider", $Provider)
+}
+if ($Json) {
+    $ReadyArgs += "--json"
+}
+& $StableExe @ReadyArgs
 
 exit 0
