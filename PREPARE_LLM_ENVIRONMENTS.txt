@@ -1,142 +1,134 @@
 ================================================================================
- NAVIA_PATH - LLM Environments Configuration Guide
-================================================================================
- NAVIA_PATH supports all major enterprise LLM providers out of the box.
- You only need to configure the single provider you intend to use.
-
- Provider Selection:
- By default, NAVIA_PATH uses Google Vertex AI.
- To select a different provider, set the environment variable:
-   $env:NAVIA_PROVIDER = "openai"        (PowerShell)
- or modify the "provider" key in config\config.json.
+ NAVIA PATH - LLM Provider Configuration Reference
 ================================================================================
 
+README.md is the source of truth for installation and first use.
+This file is a compact provider-variable reference only.
+
+Primary workflow:
+  1. Copy one provider .example file to the matching active .env file.
+  2. Fill in your provider-specific settings/credentials.
+  3. Run CHECK_ENVIRONMENT.cmd -Provider <provider>.
+  4. Verify %LOCALAPPDATA%\NAVIA_PATH\NAVIA_PATH.exe.
+  5. Execute NAVIA or use the UiPath Library.
+
+Do not commit active .env files or credentials.
 
 ================================================================================
- 1. GOOGLE VERTEX AI (Default - Gemini 3.8 Flash via ADC)
+ 1. GOOGLE VERTEX AI
 ================================================================================
 
-1. Copy the template file:
-   copy config\providers\.env.vertex.example config\providers\.env.vertex
+Template:
+  config\providers\.env.vertex.example
 
-2. Set your Google Cloud parameters in config\providers\.env.vertex:
-   NAVIA_PROVIDER=vertex
-   NAVIA_VERTEX_PROJECT=my-gcp-project
-   NAVIA_VERTEX_LOCATION=global
-   NAVIA_VERTEX_MODEL=gemini-3.8-flash
-   NAVIA_VERTEX_TIMEOUT_SECONDS=60
-   GOOGLE_APPLICATION_CREDENTIALS=credentials\vertex_credentials.json
+Active file:
+  config\providers\.env.vertex
 
-3. Provide Credentials (choose either Option A or Option B):
+Variables:
+  NAVIA_PROVIDER=vertex
+  NAVIA_VERTEX_PROJECT=<your-project>
+  NAVIA_VERTEX_LOCATION=global
+  NAVIA_VERTEX_MODEL=gemini-3.8-flash
+  NAVIA_VERTEX_TIMEOUT_SECONDS=60
+  GOOGLE_APPLICATION_CREDENTIALS=credentials\vertex_credentials.json
 
-   Option A (Portable JSON file - recommended):
-   Place your service account or ADC JSON key at:
-   credentials\vertex_credentials.json
+Portable credential:
+  credentials\vertex_credentials.json
 
-   Option B (Google Cloud CLI ADC):
-   Authenticate once via:
-   gcloud auth application-default login
+Alternative ADC:
+  %APPDATA%\gcloud\application_default_credentials.json
 
-4. Validate and install environment:
-   CHECK_ENVIRONMENT.cmd
-   (or .\CHECK_ENVIRONMENT.ps1 in PowerShell)
-
-5. Run:
-   %LOCALAPPDATA%\NAVIA_PATH\NAVIA_PATH.exe --prompt "Your objective..."
-
+Prepare:
+  CHECK_ENVIRONMENT.cmd -Provider vertex
 
 ================================================================================
- 2. GOOGLE GEMINI DIRECT API (Google AI Studio)
+ 2. GOOGLE GEMINI DIRECT API
 ================================================================================
 
-1. Copy the template file:
-   copy config\providers\.env.gemini.example config\providers\.env.gemini
+Template:
+  config\providers\.env.gemini.example
 
-2. Set your API key in config\providers\.env.gemini:
-   GEMINI_API_KEY=AIzaSy...your_api_key
-   GEMINI_MODEL=gemini-2.5-flash
-   GEMINI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
-   GEMINI_TIMEOUT_SECONDS=60
+Active file:
+  config\providers\.env.gemini
 
-3. Obtain your API key:
-   Generate a key at https://aistudio.google.com/
+Variables:
+  GEMINI_API_KEY=<your-key>
+  GEMINI_MODEL=gemini-2.5-flash
+  GEMINI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
+  GEMINI_TIMEOUT_SECONDS=60
 
-4. Validate your configuration:
-   $env:NAVIA_PROVIDER = "gemini"
-   CHECK_ENVIRONMENT.cmd
-
-5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
-
+Prepare:
+  CHECK_ENVIRONMENT.cmd -Provider gemini
 
 ================================================================================
- 3. OPENAI (GPT-4o, GPT-4o-mini)
+ 3. OPENAI
 ================================================================================
 
-1. Copy the template file:
-   copy config\providers\.env.openai.example config\providers\.env.openai
+Template:
+  config\providers\.env.openai.example
 
-2. Set your API key in config\providers\.env.openai:
-   OPENAI_API_KEY=sk-proj-...your_api_key
-   OPENAI_MODEL=gpt-4o
-   OPENAI_BASE_URL=https://api.openai.com/v1
-   OPENAI_TIMEOUT_SECONDS=60
+Active file:
+  config\providers\.env.openai
 
-3. Obtain your API key:
-   Generate a key at https://platform.openai.com/api-keys
+Variables:
+  OPENAI_API_KEY=<your-key>
+  OPENAI_MODEL=gpt-4o
+  OPENAI_BASE_URL=https://api.openai.com/v1
+  OPENAI_TIMEOUT_SECONDS=60
 
-4. Validate your configuration:
-   $env:NAVIA_PROVIDER = "openai"
-   CHECK_ENVIRONMENT.cmd
-
-5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
-
+Prepare:
+  CHECK_ENVIRONMENT.cmd -Provider openai
 
 ================================================================================
- 4. ANTHROPIC CLAUDE (Claude 3.5 Sonnet)
+ 4. ANTHROPIC
 ================================================================================
 
-1. Copy the template file:
-   copy config\providers\.env.anthropic.example config\providers\.env.anthropic
+Template:
+  config\providers\.env.anthropic.example
 
-2. Set your API key in config\providers\.env.anthropic:
-   ANTHROPIC_API_KEY=sk-ant-...your_api_key
-   ANTHROPIC_MODEL=claude-3-5-sonnet-latest
-   ANTHROPIC_BASE_URL=https://api.anthropic.com/v1
-   ANTHROPIC_TIMEOUT_SECONDS=60
+Active file:
+  config\providers\.env.anthropic
 
-3. Obtain your API key:
-   Generate a key at https://console.anthropic.com/
+Variables:
+  ANTHROPIC_API_KEY=<your-key>
+  ANTHROPIC_MODEL=claude-3-5-sonnet-latest
+  ANTHROPIC_BASE_URL=https://api.anthropic.com/v1
+  ANTHROPIC_TIMEOUT_SECONDS=60
 
-4. Validate your configuration:
-   $env:NAVIA_PROVIDER = "anthropic"
-   CHECK_ENVIRONMENT.cmd
-
-5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
-
+Prepare:
+  CHECK_ENVIRONMENT.cmd -Provider anthropic
 
 ================================================================================
- 5. AZURE OPENAI SERVICE
+ 5. AZURE OPENAI
 ================================================================================
 
-1. Copy the template file:
-   copy config\providers\.env.azure_openai.example config\providers\.env.azure_openai
+Template:
+  config\providers\.env.azure_openai.example
 
-2. Set your Azure parameters in config\providers\.env.azure_openai:
-   AZURE_OPENAI_ENDPOINT=https://your-resource-name.openai.azure.com
-   AZURE_OPENAI_API_KEY=your-azure-key
-   AZURE_OPENAI_DEPLOYMENT_NAME=your-deployment-name
-   AZURE_OPENAI_API_VERSION=2024-08-01-preview
-   AZURE_OPENAI_TIMEOUT_SECONDS=60
+Active file:
+  config\providers\.env.azure_openai
 
-3. Obtain your parameters:
-   In Azure Portal > Azure OpenAI Service > Keys and Endpoint.
+Variables:
+  AZURE_OPENAI_ENDPOINT=<your-endpoint>
+  AZURE_OPENAI_API_KEY=<your-key>
+  AZURE_OPENAI_DEPLOYMENT_NAME=<your-deployment>
+  AZURE_OPENAI_API_VERSION=2024-08-01-preview
+  AZURE_OPENAI_TIMEOUT_SECONDS=60
 
-4. Validate your configuration:
-   $env:NAVIA_PROVIDER = "azure_openai"
-   CHECK_ENVIRONMENT.cmd
+Prepare:
+  CHECK_ENVIRONMENT.cmd -Provider azure_openai
 
-5. Run:
-   .\NAVIA_PATH.exe --prompt "Your objective..."
+================================================================================
+ EXECUTION
+================================================================================
+
+After successful preparation, use the installed local runtime:
+
+  %LOCALAPPDATA%\NAVIA_PATH\NAVIA_PATH.exe
+
+Example PowerShell:
+
+  & "$env:LOCALAPPDATA\NAVIA_PATH\NAVIA_PATH.exe" run --browser msedge --prompt "Open https://example.com and tell me the page title"
+
+For Windows Mark-of-the-Web, runtime verification, UiPath integration and
+troubleshooting, follow README.md.

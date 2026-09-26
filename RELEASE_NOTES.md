@@ -1,44 +1,234 @@
-# Release Notes — NAVIA_PATH v1.1.12
+# NAVIA PATH — Release Notes
 
-Initial public release of **NAVIA_PATH**, the autonomous intelligent browser automation solution for enterprise workflows and RPA robots.
+## 1.1.12
+
+**Runtime:** NAVIA_PATH 1.1.12  
+**UiPath Library:** 4.1.1  
+**Platform:** Windows x64
+
+NAVIA PATH 1.1.12 focuses on public distribution, portable runtime preparation, deterministic readiness checks, provider credential handling and reliable UiPath integration.
+
+### Highlights
+
+- Added CHECK_ENVIRONMENT.cmd as the public Windows launcher.
+- Added the authoritative CHECK_ENVIRONMENT.ps1 preparation and validation workflow.
+- Added local runtime installation under %LOCALAPPDATA%\NAVIA_PATH.
+- Added NAVIA_READY.json readiness metadata.
+- Added --check-runtime --json for fast local consistency validation.
+- Added portable Vertex credential handling with relative paths.
+- Added local credential isolation under %LOCALAPPDATA%\NAVIA_PATH\Secrets.
+- Added provider configuration and credential fingerprinting to readiness.
+- Added/standardized the UiPath fast path for a prepared local runtime.
+- Decoupled UiPath Library versioning from NAVIA runtime versioning.
+- Removed public dependency on organization-specific infrastructure paths.
+- Consolidated end-user installation and operating instructions into README.md.
 
 ---
 
-## What's New in v1.1.12
+## Public environment preparation
 
-### Intelligent Multi-Step Web Navigation
-- Autonomous problem solving across complex web portals, multi-tab workflows, and dynamic single-page applications.
-- Natural interaction with modern Web controls: forms, dynamic dropdowns, buttons, modals, and input fields.
-- Resilient to network delays, asynchronous page loading, and DOM transitions.
+CHECK_ENVIRONMENT now acts as the public installer and authoritative full environment validator.
 
-### Comprehensive Table Understanding & Data Extraction
-- Targeted tabular data extraction from data-dense enterprise dashboards.
-- Detection and semantic comprehension of table columns, headers, and rows.
-- Structured, reliable JSON output formatted for immediate downstream workflow consumption.
+~~~text
+Downloaded distribution
+        |
+        v
+Manifest / SHA256 verification
+        |
+        v
+Local installation under %LOCALAPPDATA%\NAVIA_PATH
+        |
+        v
+Provider configuration + credentials
+        |
+        v
+NAVIA_PATH.exe --check
+        |
+        v
+NAVIA_PATH.exe --mark-ready
+        |
+        v
+NAVIA_READY.json
+~~~
 
-### First-Class Edge and Chrome Support
-- Symmetrical support for both enterprise reference browsers: **Microsoft Edge** and **Google Chrome**.
-- Attaches directly to existing system browser installations without downloading custom browser binaries.
+The CMD launcher uses process-local RemoteSigned behavior and does not require ExecutionPolicy Bypass.
 
-### Persistent Browser Sessions
-- Dedicated persistent profiles preserved under `%LOCALAPPDATA%\NAVIA_PATH`.
-- Preserves cookies and session states across executions to eliminate repeated login sequences.
+---
 
-### Native UiPath Integration
-- Dedicated activity library (`NAVIA_PATH.Activities`) for UiPath Studio.
-- Activities: **`NAVIA PATH - Edge`** and **`NAVIA PATH - Chrome`**.
-- Dynamic executable resolution, synchronous background execution without console clutter, and direct output mapping into workflow variables.
+## Binary integrity
 
-### Interchangeable Multi-Provider LLM Engine
-- Switch seamlessly between 5 major AI providers:
-  - **Google Vertex AI**
-  - **Google Gemini Direct API**
-  - **OpenAI** (GPT-4o)
-  - **Anthropic Claude** (Claude 3.5 Sonnet)
-  - **Azure OpenAI Service**
-- Dedicated, clean `.env.<provider>` templates with zero hardcoded credentials.
+Release executable:
 
-### Autonomous Standalone Windows Distribution
-- Single x64 binary (`NAVIA_PATH.exe`).
-- Zero Python installation or package management needed on target workstations.
-- Built-in diagnostic CLI command (`NAVIA_PATH.exe --check`) for pre-flight readiness checks.
+~~~text
+NAVIA_PATH_v1.1.12.exe
+~~~
+
+Size:
+
+~~~text
+54,636,023 bytes
+~~~
+
+SHA256:
+
+~~~text
+8CDA87CBDB5CB8EF89E46D698EE481271141DADD0B7ABC311B5E98A01D8B55A9
+~~~
+
+CHECK_ENVIRONMENT calculates the source executable SHA256 and refuses installation when it does not match CURRENT_VERSION.txt.
+
+---
+
+## Runtime readiness
+
+A successful full preparation creates:
+
+~~~text
+%LOCALAPPDATA%\NAVIA_PATH\NAVIA_READY.json
+~~~
+
+The marker contains non-secret runtime metadata such as product/runtime version, readiness status, executable integrity metadata, selected provider, provider configuration fingerprint, credential source classification, credential fingerprint and validation timestamp.
+
+Credential contents are never stored in the readiness marker.
+
+---
+
+## Fast local validation
+
+~~~powershell
+NAVIA_PATH.exe --check-runtime --json
+~~~
+
+This is intended as a local consistency/readiness check. It does not execute a user mission.
+
+Use the full check when provider/environment authentication needs to be validated:
+
+~~~powershell
+NAVIA_PATH.exe --check --provider vertex --json
+~~~
+
+---
+
+## Vertex portability
+
+Vertex configuration can use a relative credential path:
+
+~~~dotenv
+GOOGLE_APPLICATION_CREDENTIALS=credentials\vertex_credentials.json
+~~~
+
+During CHECK_ENVIRONMENT, the resolved JSON credential is validated and copied to:
+
+~~~text
+%LOCALAPPDATA%\NAVIA_PATH\Secrets\application_default_credentials.json
+~~~
+
+The installed local .env.vertex is rewritten to reference the isolated local copy.
+
+Credential discovery follows the runtime implementation:
+
+1. explicit GOOGLE_APPLICATION_CREDENTIALS in .env.vertex;
+2. an existing GOOGLE_APPLICATION_CREDENTIALS environment variable;
+3. standard Google ADC under %APPDATA%\gcloud;
+4. extracted credentials\vertex_credentials.json when available.
+
+---
+
+## UiPath Library 4.1.1
+
+The UiPath Library version is independent from the NAVIA runtime version.
+
+Public activity contract:
+
+~~~text
+Inputs
+  in_UserPrompt
+  in_MaxIterations
+  in_CloseBrowserAfterExecution
+
+Outputs
+  out_ExecutionResult
+  out_NavIA_Window
+~~~
+
+The executable path is internal to the Library. The obsolete public executable-path argument is not part of the activity contract.
+
+The local fast path resolves %LOCALAPPDATA%\NAVIA_PATH\NAVIA_PATH.exe when the prepared runtime is available.
+
+The library contains Edge and Chrome activities and runs the NAVIA executable synchronously. out_ExecutionResult can be left unbound by callers that do not need to consume the returned JSON.
+
+---
+
+## Public distribution hardening
+
+The public distribution was hardened to avoid embedding active provider .env files, provider credentials/ADC files, secrets directories, organization-specific UNC paths, private deployment paths or internal provider credentials.
+
+---
+
+## Windows security behavior
+
+Downloaded PowerShell files can carry Mark of the Web. On RemoteSigned systems, users may need to unblock the downloaded ZIP before extraction or unblock CHECK_ENVIRONMENT.ps1 after extraction.
+
+The public launcher does not use ExecutionPolicy Bypass.
+
+The current executable is not Authenticode-signed. Enterprise ASR/EDR/application-control systems may therefore audit or block it as a low-prevalence/unsigned executable. Users should verify the published SHA256 and coordinate with their security team instead of disabling security controls.
+
+---
+
+## Documentation changes
+
+README.md is now the single detailed end-user installation and operating guide.
+
+Added or refreshed:
+
+- README.md;
+- SECURITY.md;
+- CONTRIBUTING.md;
+- docs/ARCHITECTURE.md;
+- uipath/NAVIA_PATH.Activities/README.md;
+- provider and credential reference text files.
+
+The old QUICKSTART.md and generated Quickstart/README PDFs were removed to avoid duplicated, stale installation instructions.
+
+---
+
+## Upgrade from 1.1.11
+
+Users upgrading an existing local runtime should prepare 1.1.12 again:
+
+~~~cmd
+CHECK_ENVIRONMENT.cmd
+~~~
+
+Then verify:
+
+~~~powershell
+& "$env:LOCALAPPDATA\NAVIA_PATH\NAVIA_PATH.exe" --version
+& "$env:LOCALAPPDATA\NAVIA_PATH\NAVIA_PATH.exe" --check-runtime --json
+~~~
+
+Expected:
+
+~~~text
+NAVIA_PATH v1.1.12
+~~~
+
+---
+
+## Validation
+
+The 1.1.12 hardening/build regression suite completed with:
+
+~~~text
+28 passed
+~~~
+
+The public installation flow was also validated on a clean local runtime using the compiled executable, Vertex configuration, local Secrets installation, provider authentication and a real browser mission.
+
+---
+
+## Known environment notes
+
+Google may warn that end-user ADC credentials have no quota project. A successful NAVIA configuration/authentication check confirms local credential usability; quota and API enablement can still depend on the selected Google Cloud project and organization.
+
+Enterprise security products may separately require review/allow-listing of the unsigned executable.

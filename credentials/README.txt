@@ -1,55 +1,68 @@
 NAVIA PATH - Provider Credentials
 =================================
 
-IMPORTANT SECURITY NOTICE:
---------------------------
-NEVER commit real credentials, access keys, private keys, or token files to Git.
-This directory is protected by .gitignore.
+IMPORTANT SECURITY NOTICE
+-------------------------
+Never commit real credentials, access keys, private keys, token files, active
+provider .env files, or files from %LOCALAPPDATA%\NAVIA_PATH\Secrets.
 
-GOOGLE VERTEX AI CREDENTIALS:
------------------------------
-To use Google Vertex AI with a service account or user credentials file:
+This directory is protected by the repository .gitignore.
 
-1. Place your credentials JSON file in this directory with the name:
-   vertex_credentials.json
-   (e.g., credentials\vertex_credentials.json)
+GOOGLE VERTEX AI - PORTABLE FILE SETUP
+--------------------------------------
+1. Place your credential JSON here:
 
-2. In config\providers\.env.vertex, configure:
+   credentials\vertex_credentials.json
+
+2. Create config\providers\.env.vertex from the shipped .example file.
+
+3. Configure:
+
    GOOGLE_APPLICATION_CREDENTIALS=credentials\vertex_credentials.json
    NAVIA_VERTEX_PROJECT=<your-gcp-project-id>
    NAVIA_VERTEX_LOCATION=global
    NAVIA_VERTEX_MODEL=gemini-3.8-flash
 
-3. Run CHECK_ENVIRONMENT.ps1 in the distribution root.
+4. Run from the distribution root:
 
-HOW RELATIVE CREDENTIAL PATHS WORK:
------------------------------------
-When GOOGLE_APPLICATION_CREDENTIALS contains a relative path such as:
-   credentials\vertex_credentials.json
-it is resolved deterministically relative to the extracted NAVIA_PATH root directory.
-Absolute paths (e.g. C:\Users\user\credentials.json) are also supported.
+   CHECK_ENVIRONMENT.cmd -Provider vertex
 
-LOCAL RUNTIME ISOLATION:
+RELATIVE PATH RESOLUTION
 ------------------------
-When CHECK_ENVIRONMENT.ps1 executes, it securely validates and copies your credentials to:
-   %LOCALAPPDATA%\NAVIA_PATH\Secrets\application_default_credentials.json
-and configures the local runtime to point to this isolated copy.
+A relative GOOGLE_APPLICATION_CREDENTIALS value such as:
 
-After successful installation, your local NAVIA_PATH runtime does NOT depend
-on this extracted folder or this credentials directory. You can move, archive,
-or delete the original extracted folder without breaking normal execution.
+   credentials\vertex_credentials.json
+
+is resolved relative to the extracted NAVIA PATH distribution root.
+
+Absolute paths are also supported when allowed by your environment.
+
+LOCAL RUNTIME ISOLATION
+-----------------------
+When CHECK_ENVIRONMENT succeeds, the credential JSON is copied to:
+
+   %LOCALAPPDATA%\NAVIA_PATH\Secrets\application_default_credentials.json
+
+and the installed local .env.vertex is rewritten to reference that isolated
+local credential file.
+
+After successful preparation, normal runtime execution does not depend on the
+credential copy inside the extracted distribution.
 
 ALTERNATIVE: STANDARD GOOGLE ADC
 --------------------------------
-If you already use the Google Cloud CLI and have authenticated via:
-   gcloud auth application-default login
-your credentials are automatically discovered at:
-   %APPDATA%\gcloud\application_default_credentials.json
-You do not need to place a JSON file in this folder if standard ADC is present.
+If Google Application Default Credentials already exist at:
 
-DISCOVERY PRECEDENCE:
----------------------
-1. Explicit GOOGLE_APPLICATION_CREDENTIALS in .env.vertex (relative path resolved)
-2. Process/System GOOGLE_APPLICATION_CREDENTIALS environment variable
-3. Standard Google ADC (%APPDATA%\gcloud\application_default_credentials.json)
-4. Otherwise fail with a clear diagnostic message
+   %APPDATA%\gcloud\application_default_credentials.json
+
+NAVIA can use them without placing a JSON file in this directory.
+
+CURRENT DISCOVERY ORDER
+-----------------------
+1. Explicit GOOGLE_APPLICATION_CREDENTIALS in .env.vertex
+2. Existing GOOGLE_APPLICATION_CREDENTIALS environment variable
+3. Standard Google ADC under %APPDATA%\gcloud
+4. Extracted credentials\vertex_credentials.json when available
+
+For the complete operating procedure and Windows security notes, see the
+repository README.md and SECURITY.md.
