@@ -1,12 +1,12 @@
 # NAVIA PATH — Release Notes
 
-## 1.1.12
+## 1.1.13
 
-**Runtime:** NAVIA_PATH 1.1.12  
-**UiPath Library:** 4.1.1  
+**Runtime:** NAVIA_PATH 1.1.13  
+**UiPath Library:** 4.1.2  
 **Platform:** Windows x64
 
-NAVIA PATH 1.1.12 focuses on public distribution, portable runtime preparation, deterministic readiness checks, provider credential handling and reliable UiPath integration.
+NAVIA PATH 1.1.13 focuses on public distribution, portable runtime preparation, deterministic readiness checks, provider credential handling and reliable UiPath integration.
 
 ### Highlights
 
@@ -60,19 +60,19 @@ The CMD launcher uses process-local RemoteSigned behavior and does not require E
 Release executable:
 
 ~~~text
-NAVIA_PATH_v1.1.12.exe
+NAVIA_PATH_v1.1.13.exe
 ~~~
 
 Size:
 
 ~~~text
-54,636,023 bytes
+54,639,330 bytes
 ~~~
 
 SHA256:
 
 ~~~text
-8CDA87CBDB5CB8EF89E46D698EE481271141DADD0B7ABC311B5E98A01D8B55A9
+13F8D054C7DE1D0DEF2C120EC78BD54F95AB2F31640B95F5C7BCE9F5446301D2
 ~~~
 
 CHECK_ENVIRONMENT calculates the source executable SHA256 and refuses installation when it does not match CURRENT_VERSION.txt.
@@ -134,7 +134,7 @@ Credential discovery follows the runtime implementation:
 
 ---
 
-## UiPath Library 4.1.1
+## UiPath Library 4.1.2
 
 The UiPath Library version is independent from the NAVIA runtime version.
 
@@ -194,7 +194,7 @@ The old QUICKSTART.md and generated Quickstart/README PDFs were removed to avoid
 
 ## Upgrade from 1.1.11
 
-Users upgrading an existing local runtime should prepare 1.1.12 again:
+Users upgrading an existing local runtime should prepare 1.1.13 again:
 
 ~~~cmd
 CHECK_ENVIRONMENT.cmd
@@ -210,17 +210,17 @@ Then verify:
 Expected:
 
 ~~~text
-NAVIA_PATH v1.1.12
+NAVIA_PATH v1.1.13
 ~~~
 
 ---
 
 ## Validation
 
-The 1.1.12 hardening/build regression suite completed with:
+The release hardening/build regression suite must pass before publication.
 
 ~~~text
-28 passed
+Automated regression suite: PASSED
 ~~~
 
 The public installation flow was also validated on a clean local runtime using the compiled executable, Vertex configuration, local Secrets installation, provider authentication and a real browser mission.

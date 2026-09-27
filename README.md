@@ -4,7 +4,7 @@
 [![Playwright](https://img.shields.io/badge/playwright-1.40%2B-green.svg)](https://playwright.dev/)
 [![LLM Multi-Provider](https://img.shields.io/badge/LLM-Vertex%20%7C%20OpenAI%20%7C%20Anthropic%20%7C%20Gemini-orange.svg)]()
 [![UiPath Ready](https://img.shields.io/badge/UiPath-Library%20Activities-blueviolet.svg)]()
-[![Runtime](https://img.shields.io/badge/NAVIA_PATH-1.1.12-brightgreen.svg)]()
+[![Runtime](https://img.shields.io/badge/NAVIA_PATH-1.1.13-brightgreen.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
 
 **Python-based AI browser agent that turns a single prompt into multi-step web automation.**
@@ -32,15 +32,15 @@ open its details and return the current status.
 
 | Component | Version |
 |---|---:|
-| NAVIA PATH Runtime | 1.1.12 |
-| UiPath Library | 4.1.1 |
+| NAVIA PATH Runtime | 1.1.13 |
+| UiPath Library | 4.1.2 |
 | Platform | Windows x64 |
-| Public executable | NAVIA_PATH_v1.1.12.exe |
+| Public executable | NAVIA_PATH_v1.1.13.exe |
 
 Current executable SHA256:
 
 ~~~text
-8CDA87CBDB5CB8EF89E46D698EE481271141DADD0B7ABC311B5E98A01D8B55A9
+13F8D054C7DE1D0DEF2C120EC78BD54F95AB2F31640B95F5C7BCE9F5446301D2
 ~~~
 
 The UiPath Library version and NAVIA runtime version are intentionally independent.
@@ -339,7 +339,7 @@ You can also invoke the PowerShell script directly when allowed by your executio
 
 ## What CHECK_ENVIRONMENT actually does
 
-The current 1.1.12 workflow:
+The current 1.1.13 workflow:
 
 1. chooses %LOCALAPPDATA%\NAVIA_PATH as the default runtime root;
 2. creates Runs, Logs, Cache, EdgeProfile, ChromeProfile, Secrets, config and Bootstrap directories;
@@ -363,7 +363,7 @@ The current 1.1.12 workflow:
 A successful run ends with output similar to:
 
 ~~~text
-[OK] NAVIA PATH v1.1.12 is READY and operational.
+[OK] NAVIA PATH v1.1.13 is READY and operational.
 [OK] Local Runtime Root: C:\Users\<USER>\AppData\Local\NAVIA_PATH
 [OK] Executable: C:\Users\<USER>\AppData\Local\NAVIA_PATH\NAVIA_PATH.exe
 ~~~
@@ -378,7 +378,7 @@ A prepared runtime looks similar to:
 %LOCALAPPDATA%\NAVIA_PATH\
 |
 |-- NAVIA_PATH.exe
-|-- NAVIA_PATH_v1.1.12.exe
+|-- NAVIA_PATH_v1.1.13.exe
 |-- CURRENT_VERSION.txt
 |-- NAVIA_READY.json
 |
@@ -412,7 +412,7 @@ Check the version:
 Expected:
 
 ~~~text
-NAVIA_PATH v1.1.12
+NAVIA_PATH v1.1.13
 ~~~
 
 Run the fast local-only runtime check:
@@ -464,13 +464,13 @@ uipath\NAVIA_PATH.Activities
 Current UiPath Library version:
 
 ~~~text
-4.1.1
+4.1.2
 ~~~
 
 Embedded/current NAVIA runtime:
 
 ~~~text
-1.1.12
+1.1.13
 ~~~
 
 The two public activities are:
@@ -584,7 +584,7 @@ Check the installed version:
 & "$env:LOCALAPPDATA\NAVIA_PATH\NAVIA_PATH.exe" --version
 ~~~
 
-If the runtime is older than 1.1.12, prepare the current distribution again.
+If the runtime is older than 1.1.13, prepare the current distribution again.
 
 ## Vertex credentials are not detected
 
@@ -642,7 +642,7 @@ NAVIA_PATH\
 |-- LICENSE
 |
 |-- CURRENT_VERSION.txt
-|-- NAVIA_PATH_v1.1.12.exe
+|-- NAVIA_PATH_v1.1.13.exe
 |-- CHECK_ENVIRONMENT.cmd
 |-- CHECK_ENVIRONMENT.ps1
 |-- NAVIA_BOOTSTRAP.ps1

@@ -42,7 +42,7 @@ Outputs
 
 Do not expose machine-specific executable paths as public activity arguments.
 
-The current Library version is 4.1.1 and the current runtime is 1.1.12.
+The current Library version is 4.1.2 and the current runtime is 1.1.13.
 
 ## Documentation source of truth
 

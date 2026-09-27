@@ -32,11 +32,11 @@ The local runtime then uses that isolated copy. The downloaded distribution shou
 
 CURRENT_VERSION.txt contains the expected runtime version, executable name and SHA256.
 
-For NAVIA_PATH 1.1.12:
+For NAVIA_PATH 1.1.13:
 
 ~~~text
-NAVIA_PATH_v1.1.12.exe
-SHA256: 8CDA87CBDB5CB8EF89E46D698EE481271141DADD0B7ABC311B5E98A01D8B55A9
+NAVIA_PATH_v1.1.13.exe
+SHA256: 13F8D054C7DE1D0DEF2C120EC78BD54F95AB2F31640B95F5C7BCE9F5446301D2
 ~~~
 
 CHECK_ENVIRONMENT verifies this SHA256 before installing the executable into %LOCALAPPDATA%\NAVIA_PATH.
@@ -44,7 +44,7 @@ CHECK_ENVIRONMENT verifies this SHA256 before installing the executable into %LO
 Manual verification:
 
 ~~~powershell
-Get-FileHash ".\NAVIA_PATH_v1.1.12.exe" -Algorithm SHA256
+Get-FileHash ".\NAVIA_PATH_v1.1.13.exe" -Algorithm SHA256
 ~~~
 
 ## Windows / enterprise security controls
