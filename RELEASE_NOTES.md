@@ -1,12 +1,12 @@
 # NAVIA PATH — Release Notes
 
-## 1.1.13
+## 1.1.14
 
-**Runtime:** NAVIA_PATH 1.1.13  
-**UiPath Library:** 4.1.2  
+**Runtime:** NAVIA_PATH 1.1.14  
+**UiPath Library:** 4.1.3  
 **Platform:** Windows x64
 
-NAVIA PATH 1.1.13 focuses on public distribution, portable runtime preparation, deterministic readiness checks, provider credential handling and reliable UiPath integration.
+NAVIA PATH 1.1.14 focuses on public distribution, portable runtime preparation, deterministic readiness checks, provider credential handling and reliable UiPath integration.
 
 ### Highlights
 
@@ -60,19 +60,19 @@ The CMD launcher uses process-local RemoteSigned behavior and does not require E
 Release executable:
 
 ~~~text
-NAVIA_PATH_v1.1.13.exe
+NAVIA_PATH_v1.1.14.exe
 ~~~
 
 Size:
 
 ~~~text
-54,639,330 bytes
+54,669,569 bytes
 ~~~
 
 SHA256:
 
 ~~~text
-13F8D054C7DE1D0DEF2C120EC78BD54F95AB2F31640B95F5C7BCE9F5446301D2
+E5C210A1484CF33A2145747B682D842114B3B1F84349DC4627C77E8F8FDEB259
 ~~~
 
 CHECK_ENVIRONMENT calculates the source executable SHA256 and refuses installation when it does not match CURRENT_VERSION.txt.
@@ -134,7 +134,7 @@ Credential discovery follows the runtime implementation:
 
 ---
 
-## UiPath Library 4.1.2
+## UiPath Library 4.1.3
 
 The UiPath Library version is independent from the NAVIA runtime version.
 
@@ -194,7 +194,7 @@ The old QUICKSTART.md and generated Quickstart/README PDFs were removed to avoid
 
 ## Upgrade from 1.1.11
 
-Users upgrading an existing local runtime should prepare 1.1.13 again:
+Users upgrading an existing local runtime should prepare 1.1.14 again:
 
 ~~~cmd
 CHECK_ENVIRONMENT.cmd
@@ -210,7 +210,7 @@ Then verify:
 Expected:
 
 ~~~text
-NAVIA_PATH v1.1.13
+NAVIA_PATH v1.1.14
 ~~~
 
 ---

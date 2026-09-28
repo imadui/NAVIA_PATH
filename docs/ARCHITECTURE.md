@@ -136,8 +136,8 @@ UiPath activities prepare a browser/debug session and then run NAVIA against tha
 
 ## UiPath integration
 
-Current Library version: 4.1.2  
-Current NAVIA runtime: 1.1.13
+Current Library version: 4.1.3  
+Current NAVIA runtime: 1.1.14
 
 Public activity contract:
 

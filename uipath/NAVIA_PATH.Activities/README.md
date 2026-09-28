@@ -5,8 +5,8 @@ UiPath activity library for **NAVIA PATH**.
 Current versions:
 
 ~~~text
-UiPath Library : 4.1.2
-NAVIA Runtime  : 1.1.13
+UiPath Library : 4.1.3
+NAVIA Runtime  : 1.1.14
 Target         : Windows
 ~~~
 
@@ -108,7 +108,7 @@ Provider .example files are safe templates only.
 Expected:
 
 ~~~text
-NAVIA_PATH v1.1.13
+NAVIA_PATH v1.1.14
 ~~~
 
 If the runtime/configuration/credentials changed materially, rerun CHECK_ENVIRONMENT from the current distribution.

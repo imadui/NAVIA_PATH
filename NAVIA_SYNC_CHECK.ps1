@@ -6,6 +6,7 @@ param(
     [string]$SourcePath = "",
     [switch]$Json
 )
+
 $ErrorActionPreference = "Stop"
 $CheckEnv = Join-Path $PSScriptRoot "CHECK_ENVIRONMENT.ps1"
 if (Test-Path -LiteralPath $CheckEnv) {
